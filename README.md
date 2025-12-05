@@ -37,9 +37,11 @@ This project manages **Customer Assets**, automatically creates **Service Appoin
     - Idempotency (no duplicate appointments on multiple runs)
 
 ---
+
 ## 📸 Screenshots & Visual Overview
 
-| **LWC: Maintenance Calendar (List/Calendar View)** | ![Maintenance Calendar]<img width="1882" height="777" alt="SSM" src="https://github.com/user-attachments/assets/7597389e-57d6-4519-b6ce-03fd74bcd64f" /> |
+ **LWC: Maintenance Calendar (List/Calendar View)** | ![Maintenance Calendar]<img width="1882" height="777" alt="SSM" src="https://github.com/user-attachments/assets/7597389e-57d6-4519-b6ce-03fd74bcd64f" />
+ 
 ---
 
 
