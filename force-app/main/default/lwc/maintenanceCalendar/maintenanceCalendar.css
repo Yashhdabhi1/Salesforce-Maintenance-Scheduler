@@ -1,0 +1,65 @@
+/* Container for the overall calendar component */
+.calendar-container {
+    background-color: #f7f9fb;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+/* Styling for the box containing appointments for a single day */
+.calendar-day-box {
+    border: 1px solid #e0e5ee;
+    border-radius: 6px;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease-in-out;
+}
+
+.calendar-day-box:hover {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the date header (e.g., "Monday, December 2, 2025") */
+.day-header {
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #0070d2; /* Salesforce Blue highlight */
+    margin-bottom: 1rem;
+    font-weight: 700;
+    color: #16325c; /* Dark text */
+}
+
+/* Highlight for today's date */
+.day-header.is-today {
+    border-bottom: 3px solid #ff9900; /* Orange highlight for "Today" */
+}
+
+/* Individual appointment list item */
+.appt-item {
+    cursor: pointer;
+    background-color: #ffffff;
+    border: 1px solid #f3f3f3;
+    border-radius: 4px;
+    margin-bottom: 0.75rem;
+    transition: background-color 0.15s;
+}
+
+.appt-item:hover {
+    background-color: #fcfcfc;
+}
+
+/* Status pill styling */
+.status-pill {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: inline-block;
+    min-width: 80px;
+    text-align: center;
+}
+
+/* Ensures asset and tech details use full width on mobile */
+.appt-details {
+    display: flex;
+    flex-direction: column;
+}

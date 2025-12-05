@@ -1,0 +1,103 @@
+<template>
+    <lightning-card title="Upcoming Maintenance Schedule" icon-name="utility:event">
+        
+        <!-- Card Actions Slot -->
+        <lightning-button slot="actions" 
+                          label="Refresh Schedule" 
+                          icon-name="utility:refresh"
+                          onclick={handleRefresh}
+                          disabled={isLoading}>
+        </lightning-button>
+
+        <!-- Main Content Area -->
+        <div class="slds-m-around_medium calendar-container">
+            
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading Schedule" size="medium"></lightning-spinner>
+            </template>
+            
+            <!-- Empty State -->
+            <template if:true={showEmptyState}>
+                 <div class="slds-text-align_center slds-p-vertical_xx-large slds-text-heading_medium slds-text-color_weak">
+                    <lightning-icon icon-name="utility:success" size="large"></lightning-icon>
+                    <p class="slds-m-top_small">No service appointments are currently scheduled or in progress.</p>
+                </div>
+            </template>
+
+            <!-- Agenda View: Iterate over days -->
+             <template if:true={hasAppointments}>
+                <template for:each={appointmentsByDate} for:item="day">
+                    <div key={day.date} class="slds-m-bottom_x-large calendar-day-box">
+                        
+                        <!-- Date Header -->
+                        <h2 class="slds-text-heading_medium slds-m-bottom_small" 
+                            title={day.date}>
+                            <lightning-icon icon-name="utility:date_time" size="small"></lightning-icon>
+                            <template if:true={day.isToday}>
+                                <span class="slds-text-color_error slds-p-left_xx-small slds-text-heading_large">
+                                    {day.date}
+                                </span>
+                            </template>
+                            <template if:false={day.isToday}>
+                                <span class="slds-p-left_xx-small">
+                                    {day.date}
+                                </span>
+                            </template>
+                        </h2>
+
+                        <!-- Appointments for the day -->
+                        <div class="slds-grid slds-wrap slds-list_vertical">
+                            <template for:each={day.appointments} for:item="appt">
+                                <div key={appt.Id} class="slds-col slds-size_1-of-1 s slds-p-vertical_small appt-item slds-m-bottom_small">
+                                    <div class="slds-grid slds-grid_vertical-align-center slds-p-horizontal_medium">
+                                        
+                                        <!-- Left Column: Status Badge -->
+                                        <div class="slds-col slds-size_2-of-12 slds-medium-size_1-of-12 slds-align-middle slds-p-right_small">
+                                            <span class={appt.Status_Class} style="padding: 4px; border-radius: 4px;">
+                                                <span class="status-pill">{appt.Status}</span>
+                                            </span>
+                                        </div>
+
+                                        <!-- Right Column: Details & Link -->
+                                        <div class="slds-col slds-size_10-of-12 slds-medium-size_11-of-12 slds-p-left_small appt-details">
+                                            <!-- Appointment Name/Link -->
+                                            <p class="slds-text-title_bold slds-truncate">
+                                                <a href={appt.Link} target="_blank" title={appt.Name} class="slds-text-link_reset">{appt.Name}</a>
+                                            </p>
+                                            
+                                            <!-- Asset and Technician Info (Inline on Desktop, Stacked on Mobile) -->
+                                            <div class="slds-grid slds-wrap slds-text-body_small slds-text-color_weak">
+                                                
+                                                <!-- Asset Name -->
+                                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-truncate">
+                                                    <lightning-icon icon-name="utility:asset_audit" size="xx-small" class="slds-m-right_xx-small"></lightning-icon>
+                                                    Asset: {appt.Asset_Name}
+                                                </div>
+
+                                                <!-- Technician Name -->
+                                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-truncate">
+                                                    <lightning-icon icon-name="utility:user" size="xx-small" class="slds-m-right_xx-small"></lightning-icon>
+                                                    Technician: {appt.Technician_Name}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+             </template>
+            
+
+            <!-- Error Display -->
+            <template if:true={error}>
+                <div class="slds-box slds-theme_error slds-m-top_medium">
+                    <p class="slds-text-heading_small">Error Loading Data</p>
+                    <p>An unexpected error occurred while fetching the schedule. See browser console for details.</p>
+                </div>
+            </template>
+
+        </div>
+    </lightning-card>
+</template>
